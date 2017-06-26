@@ -1,0 +1,16 @@
+language: java
+install: true
+before_install:
+- openssl aes-256-cbc -K $encrypted_492bb558f853_key -iv $encrypted_492bb558f853_iv -in travis-cigrowbit-52554fcb00cd.json.enc -out travis-cigrowbit-52554fcb00cd.json -d
+- export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+- echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+- curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+- sudo apt-get update && sudo apt-get install -y kubectl google-cloud-sdk google-cloud-sdk-app-engine-java
+before_script:
+- openssl aes-256-cbc -K $encrypted_c43be66311ef_key -iv $encrypted_c43be66311ef_iv -in travis-cigrowbit-52554fcb00cd.json.enc -out travis-cigrowbit-52554fcb00cd.json -d
+- gcloud auth activate-service-account "travis-ci@growbit-0.iam.gserviceaccount.com" --key-file=travis-cigrowbit-52554fcb00cd.json
+- gcloud config set project growbit-0
+script:
+- gcloud config set app/cloud_build_timeout 3600
+- gcloud config set container/build_timeout 3600
+- gcloud container builds submit ./docker --config build-config.yaml --tag eu.gcr.io/growbit-0/matlab-compiler-runtime:latest

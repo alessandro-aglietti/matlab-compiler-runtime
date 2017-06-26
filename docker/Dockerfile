@@ -80,3 +80,5 @@ WORKDIR /opt/jd-core-java
 RUN ./gradlew assemble
 
 WORKDIR /opt
+
+CMD ["printenv"]

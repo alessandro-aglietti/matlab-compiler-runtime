@@ -1,0 +1,4 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/growbit-0/matlab-compiler-runtime:latest', '.']
+images: ['gcr.io/growbit-0/matlab-compiler-runtime:latest']

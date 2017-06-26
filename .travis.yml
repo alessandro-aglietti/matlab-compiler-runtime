@@ -12,4 +12,4 @@ before_script:
 script:
 - gcloud config set app/cloud_build_timeout 3600
 - gcloud config set container/build_timeout 3600
-- gcloud container builds submit ./docker --config build-config.yaml --tag eu.gcr.io/growbit-0/matlab-compiler-runtime:latest
+- gcloud container builds submit ./docker --tag eu.gcr.io/growbit-0/matlab-compiler-runtime:latest

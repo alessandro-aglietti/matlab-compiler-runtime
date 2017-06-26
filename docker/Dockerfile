@@ -50,11 +50,12 @@ RUN mkdir mcr
 
 WORKDIR /opt/mcr_installer
 
-RUN wget https://storage.googleapis.com/growingabit-io-backend/MCR_R2017a_glnxa64_installer.zip
+RUN wget https://storage.googleapis.com/growingabit-io-backend/MCR_R2017a_glnxa64_installer.zip && \
+    unzip MCR_R2017a_glnxa64_installer.zip && \
+    ./install -destinationFolder /opt/mcr -agreeToLicense yes -mode silent && \
+    cd /opt && \
+    rm -R /opt/mcr_installer && \
 
-RUN unzip MCR_R2017a_glnxa64_installer.zip
-
-RUN ./install -destinationFolder /opt/mcr -agreeToLicense yes -mode silent
 
 ENV MCR_ROOT="/opt/mcr"
 RUN echo $MCR_ROOT
